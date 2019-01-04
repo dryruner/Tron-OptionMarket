@@ -1,8 +1,9 @@
-pragma solidity >= 0.4.24 < 0.5.0;
+// pragma solidity >= 0.4.24 < 0.5.0;
+pragma solidity ^0.4.23;
+
 
 contract DOSProxyInterface {
-    function query(address, uint, string memory, string memory) public returns (uint);
-    function requestRandom(address, uint8, uint) public returns (uint);
+    function query(address, uint, string, string) external returns (uint);
 }
 
 contract DOSAddressBridgeInterface {
@@ -11,8 +12,14 @@ contract DOSAddressBridgeInterface {
 
 contract DOSOnChainSDK {
     DOSProxyInterface dosProxy;
+    address public bridgeAddress = 0x0;
     DOSAddressBridgeInterface dosAddrBridge =
-        DOSAddressBridgeInterface(0xe987926A226932DFB1f71FA316461db272E05317);
+        DOSAddressBridgeInterface(bridgeAddress);
+
+    constructor(address addr) public {
+        bridgeAddress = addr;
+        dosAddrBridge = DOSAddressBridgeInterface(bridgeAddress);
+    }
 
     modifier resolveAddress {
         dosProxy = DOSProxyInterface(dosAddrBridge.getProxyAddress());
