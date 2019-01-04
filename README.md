@@ -6,9 +6,7 @@
 
 3. Start server: `$ npm start`
 
-4. Start single node oracle client:
-  - Export owner PK.
-  - `$ node oracle/client.js &`
+4. Start oracle client for tron blockchain
 
 5. Start production server:
   - `$ ssh into server && git pull && cd front-end-src`
